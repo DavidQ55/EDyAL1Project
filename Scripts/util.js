@@ -1,76 +1,64 @@
-// Importar la clase Submission desde el archivo Submission.js
-import { Submission } from './Submission.js';
-
-
-
-function calcularScoreBoard(caso){
+function calcularScoreBoard(caso) {
     let submissions = caso.split(";"); // Para separar las entregas o submissions
     let tiempoP = {}; // Objeto para almacenar los tiempos de penalización de cada equipo
-    let problemasR = {};
+    let problemasR = {}; // Objeto para almacenar el número de problemas resueltos por cada equipo
+    let intentosErroneos = {}; // Objeto para almacenar los intentos incorrectos por problema
 
     // Para separar los datos de cada submission
     for (let i = 0; i < submissions.length; i++) {
         let infoSubmission = submissions[i].trim().split(" ");
-
         let concursante = infoSubmission[0];
+        let problema = infoSubmission[1];
         let tiempo = parseInt(infoSubmission[2]);
-        let l = infoSubmission[3];
+        let resultado = infoSubmission[3];
 
-        //Calcular el número de problemas resueltos
-        if (l === "C") {
-            if (problemasR[concursante]) {
-                problemasR[concursante] ++;
-            }else{
-                problemasR[concursante] = 1;
-            } 
-        }
-        
-        // Hacer el cálculo del tiempo de penalización
-        if (l === "C") {
-            // Si el equipo ya tiene un tiempo de penalización registrado, sumarle el tiempo del problema actual
-            if (tiempoP[concursante]) {
-                tiempoP[concursante] += tiempo;
-            } else {
-                // Si es la primera vez que se toma el equipo, inicializar su tiempo con el del problema actual
-                tiempoP[concursante] = tiempo;
-            }
-        } else if (l === "I") {
-            
-            if (tiempoP[concursante]) {
-                tiempoP[concursante] += 20;
-            } else {  
-                tiempoP[concursante] = 20;
-            }
-        }
+        // Inicializar los datos si no existen (Primera vez que se registran las submission)
+        if (!problemasR[concursante]) problemasR[concursante] = 0;
+        if (!tiempoP[concursante]) tiempoP[concursante] = 0;
+        if (!intentosErroneos[concursante]) intentosErroneos[concursante] = {};
+        if (!intentosErroneos[concursante][problema]) intentosErroneos[concursante][problema] = 0;
 
+        // Calcular el número de problemas resueltos
+        if (resultado === "C") {
+            problemasR[concursante]++;
+            tiempoP[concursante] += tiempo + (20 * intentosErroneos[concursante][problema]);
+        } else if (resultado === "I") {
+            intentosErroneos[concursante][problema]++;
+        }
     }
 
+    // Crear un array de resultados para el ordenamiento
+    let resultados = Object.keys(problemasR).map(concursante => ({
+        concursante,
+        problemasResueltos: problemasR[concursante],
+        tiempoPenalizacion: tiempoP[concursante]
+    }));
 
+    // Ordenar los resultados
+    resultados.sort((a, b) => {
+
+        // Orden descendente por número de problemas resueltos
+        if (b.problemasResueltos !== a.problemasResueltos) {
+            return b.problemasResueltos - a.problemasResueltos;
+        }
+
+        // Orden ascendente por tiempo de penalización
+        if (a.tiempoPenalizacion !== b.tiempoPenalizacion) {
+            return a.tiempoPenalizacion - b.tiempoPenalizacion;
+        }
+
+        // Orden ascendente por concursante o equipo
+        return a.concursante.localeCompare(b.concursante);
+    });
+
+    // Construir el resultado final en una cadena
     let res = "";
-    
-    for (let concursante in tiempoP) {
-        res += concursante + " " + problemasR[concursante] + " " + tiempoP[concursante] + "\n";           
+    for (let i = 0; i < resultados.length; i++) {
+        let r = resultados[i];
+        res += r.concursante + " " + r.problemasResueltos + " " + r.tiempoPenalizacion + "\n";
     }
 
-    return res;
-    
-
+    return res.trim(); // Para eliminar el último salto de línea
 }
 
-
-
-
-
-
-/*
-
-// Crear una instancia de la clase Submission
-let submission = new Submission();
-
-// Definir una entrada de ejemplo
-let entrada = 'Team1 1 5 C;Team2 5 10 C;Team3 2 15 I;Team1 3 20 R;Team2 1 25 R;Team2 4 30 C;Team1 3 35 I;Team1 3 40 C;Team3 2 45 I;Team3 2 50 C';
-let resultado = submission.convertirCadena(entrada);
-console.log(resultado); 
-
-*/
-
+export { calcularScoreBoard };
