@@ -1,43 +1,68 @@
 body{
-    color:rgb(0, 0, 0);
-    background-color:rgb(230, 247, 175);
-    font-size: 30px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(20, 20, 20);
+    font-size: 20px;
     text-align: center;
-    background-image: url('../Images/R.jpg'); /* Establecer la imagen de fondo */
+    background-image: url("/Images/Fondo.jpg"); /* Imagen de fondo */
     background-size: cover; /* Ajustar la imagen para cubrir todo el fondo */
-    background-repeat: no-repeat; /* Evitar que la imagen se repita */
-    -webkit-background-size: cover; /* Para Safari y Chrome antiguos */
-    -moz-background-size: cover; /* Para versiones antiguas de Firefox */
-    -o-background-size: cover; /* Para versiones antiguas de Opera */
+    font-family: 'Roboto Mono', monospace;
 }
 
 #div1{
     margin-bottom: 20px;
-    color: #ffff;
+    color: #00bfff;
     font-size: larger;
 }
 
-#fieldEntrada{
-    width:600px;
-    height:615px;
-    border-radius:20px;
-    border-color: rgb(0, 0, 0);
-    background: #71c55b;
-    color:#000000;
+#fieldEntrada, #fieldSalida {
+    width: 600px;
+    border-radius: 10px;
+    border: 2px solid #00bfff; /* Borde azul brillante */
+    background: linear-gradient(135deg, #333333, #555555); /* Fondo con gradiente */
+    color: #ffffff;
     margin: auto;
     margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+    padding: 20px; /* Añadir padding para mejorar el espaciado interno */
 }
 
-#fieldSalida{
-    width:600px;
-    height:530px;
-    border-radius:20px;
-    border-color: rgb(0, 0, 0);
-    background:#71c55b;
-    color:#000000;
-    margin: auto;
+#fieldEntrada {
+    height: 630px;
+}
+
+#fieldSalida {
+    height: 550px;
+}
+
+main fieldset {
+    border: 2px solid #00bfff; /* Borde azul para el fieldset */
+    padding: 20px;
 }
 
 main fieldset legend {
-    color: #ffff;
+    color: #00bfff; /* Color azul para el texto del legend */
+    font-size: larger; /* Aumentar el tamaño de la fuente */
+}
+
+/* Estilos para los botones */
+button {
+    background-color: #00bfff; /* Fondo azul */
+    color: #ffffff; /* Texto blanco */
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer; /* Cambia el cursor cuando se pasa sobre el botón */
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transición del botón */
+}
+
+button:hover {
+    background-color: #007acc; /* Cambio de color cuando se le pasa el cursor */
+    transform: scale(1.05); /* Aumentar el tamaño cuando pasa lo anterior */
+}
+
+button:active {
+    background-color: #005f99; /* Cambio de color cuando se le hace click */
+    transform: scale(1); /* Volver a como estaba el botón */
 }
