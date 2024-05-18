@@ -16,7 +16,7 @@ btnOrdenar.addEventListener('click', ordenarSubmissions);
 
 
 function ingresarNvaSubmission(){
-    let submission = document.getElementById("entrada").value;
+    let submission = entrada.value;
 
     bd = submission
 

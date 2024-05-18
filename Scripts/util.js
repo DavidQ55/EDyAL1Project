@@ -2,7 +2,6 @@ function calcularScoreBoard(caso) {
     let submissions = caso.split(";"); // Para separar las entregas o submissions
     let tiempoP = {}; // Objeto para almacenar los tiempos de penalización de cada equipo
     let problemasR = {}; // Objeto para almacenar el número de problemas resueltos por cada equipo
-    let intentosErroneos = {}; // Objeto para almacenar los intentos incorrectos por problema
 
     // Para separar los datos de cada submission
     for (let i = 0; i < submissions.length; i++) {
@@ -15,16 +14,21 @@ function calcularScoreBoard(caso) {
         // Inicializar los datos si no existen (Primera vez que se registran las submission)
         if (!problemasR[concursante]) problemasR[concursante] = 0;
         if (!tiempoP[concursante]) tiempoP[concursante] = 0;
-        if (!intentosErroneos[concursante]) intentosErroneos[concursante] = {};
-        if (!intentosErroneos[concursante][problema]) intentosErroneos[concursante][problema] = 0;
 
         // Calcular el número de problemas resueltos
         if (resultado === "C") {
+
             problemasR[concursante]++;
-            tiempoP[concursante] += tiempo + (20 * intentosErroneos[concursante][problema]);
+
+            tiempoP[concursante] += tiempo;
+            
+
         } else if (resultado === "I") {
-            intentosErroneos[concursante][problema]++;
+
+            tiempoP[concursante] += 20
+            
         }
+        
     }
 
     // Crear un array de resultados para el ordenamiento
