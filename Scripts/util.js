@@ -3,27 +3,25 @@ function calcularScoreBoard(caso) {
     let tiempoP = {}; // Objeto para almacenar los tiempos de penalización de cada equipo
     let problemasR = {}; // Objeto para almacenar el número de problemas resueltos por cada equipo
 
-    // Para separar los datos de cada submission
     for (let i = 0; i < submissions.length; i++) {
-        let infoSubmission = submissions[i].trim().split(" ");
+        let infoSubmission = submissions[i].trim().split(" "); // Para separar los datos de cada una de las submission
         let concursante = infoSubmission[0];
-        let problema = infoSubmission[1];
         let tiempo = parseInt(infoSubmission[2]);
-        let resultado = infoSubmission[3];
+        let estado = infoSubmission[3];
 
         // Inicializar los datos si no existen (Primera vez que se registran las submission)
         if (!problemasR[concursante]) problemasR[concursante] = 0;
         if (!tiempoP[concursante]) tiempoP[concursante] = 0;
 
         // Calcular el número de problemas resueltos
-        if (resultado === "C") {
+        if (estado === "C") {
 
             problemasR[concursante]++;
 
             tiempoP[concursante] += tiempo;
             
 
-        } else if (resultado === "I") {
+        } else if (estado === "I") {
 
             tiempoP[concursante] += 20
             
@@ -32,11 +30,12 @@ function calcularScoreBoard(caso) {
     }
 
     // Crear un array de resultados para el ordenamiento
-    let resultados = Object.keys(problemasR).map(concursante => ({
+    let resultados = Object.keys(problemasR).map(concursante => ({               
         concursante,
         problemasResueltos: problemasR[concursante],
         tiempoPenalizacion: tiempoP[concursante]
     }));
+    
 
     // Ordenar los resultados
     resultados.sort((a, b) => {
@@ -62,7 +61,7 @@ function calcularScoreBoard(caso) {
         res += r.concursante + " " + r.problemasResueltos + " " + r.tiempoPenalizacion + "\n";
     }
 
-    return res.trim(); // Para eliminar el último salto de línea
+    return res.trim(); // Para eliminar los espacios que no sirven
 }
 
-export { calcularScoreBoard };
+export {calcularScoreBoard};
