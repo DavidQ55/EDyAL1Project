@@ -3,7 +3,7 @@ body{
     background-color: rgb(20, 20, 20);
     font-size: 20px;
     text-align: center;
-    background-image: url("/Images/Fondo.jpg"); /* Imagen de fondo */
+    background-image: url("/Images/Fondo.jpg");
     background-size: cover; /* Ajustar la imagen para cubrir todo el fondo */
     font-family: 'Roboto Mono', monospace;
 }
@@ -17,13 +17,13 @@ body{
 #fieldEntrada, #fieldSalida {
     width: 600px;
     border-radius: 10px;
-    border: 2px solid #00bfff; /* Borde azul brillante */
-    background: linear-gradient(135deg, #333333, #555555); /* Fondo con gradiente */
+    border: 2px solid #00bfff; /* Borde azul */
+    background: linear-gradient(135deg, #333333, #555555); /* Fondo con un gradiente */
     color: #ffffff;
     margin: auto;
     margin-bottom: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
-    padding: 20px; /* Añadir padding para mejorar el espaciado interno */
+    padding: 20px;
 }
 
 #fieldEntrada {
@@ -47,7 +47,7 @@ main fieldset legend {
 /* Estilos para los botones */
 button {
     background-color: #00bfff; /* Fondo azul */
-    color: #ffffff; /* Texto blanco */
+    color: #ffffff;
     border: none;
     padding: 8px 16px;
     font-size: 16px;
